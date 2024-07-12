@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Persona, ResAgregarPersona } from '../interfaces/persona';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,12 @@ export class PersonaService {
 
   // Consultar personas
   obtenerPersonas() {
-    return this.http.get<any>(`${this.baseApi}/usuarios`);
+    return this.http.get<Persona[]>(`${this.baseApi}/usuarios`);
   }
 
-  // Registrar persona
-  registrarPersona(body: FormData) {
-    return this.http.post<any>(`${this.baseApi}/usuarios`, body);
+  // Registrar o modificar persona
+  registrarPersona(body: Persona) {
+    return this.http.post<ResAgregarPersona>(`${this.baseApi}/usuarios`, body);
   }
 
   // Eliminar persona

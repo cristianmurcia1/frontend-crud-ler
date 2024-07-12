@@ -7,6 +7,7 @@ import { RegistrarPersonaComponent } from './components/registrar-persona/regist
 import { PersonaService } from './services/persona.service';
 import { CoreService } from './core/core.service';
 import { ModalConfirmarEliminarComponent } from './components/modal-confirmar-eliminar/modal-confirmar-eliminar.component';
+import { Persona } from './interfaces/persona';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,9 @@ import { ModalConfirmarEliminarComponent } from './components/modal-confirmar-el
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  // Configuración tabla
   displayedColumns: string[] = ['nombre', 'cedula', 'fechaNacimiento', 'modificar', 'eliminar'];
-  dataSource!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<Persona>;
   searchValue: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -28,9 +30,11 @@ export class AppComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
+    // Consultar personas al iniciar la aplicación
     this.obtenerPersonas();
   }
   
+  // Consultar personas
   obtenerPersonas() {
     this.personaService.obtenerPersonas()
       .subscribe({
@@ -55,8 +59,11 @@ export class AppComponent implements OnInit {
     }
   }
 
+  // Abrir ventana modal para agregar una persona
   openAddPersonForm() {
-    const modalPersona = this.dialog.open(RegistrarPersonaComponent);
+    const modalPersona = this.dialog.open(RegistrarPersonaComponent, {
+      disableClose: true // Evitar que se cierre la modal al dar clic fuera de ella
+    });
     modalPersona.afterClosed().subscribe({
       next: (response) => {
         if (response) {
@@ -67,9 +74,11 @@ export class AppComponent implements OnInit {
     });
   }
 
-  openEditPersonForm(persona: any) {
+  // Abrir ventana modal para modificar la información de una persona
+  openEditPersonForm(persona: Persona) {
     const modalPersona = this.dialog.open(RegistrarPersonaComponent, {
-      data: persona
+      data: persona,
+      disableClose: true
     });
     modalPersona.afterClosed().subscribe({
       next: (response) => {
@@ -81,14 +90,15 @@ export class AppComponent implements OnInit {
     });
   }
 
-  confirmarEliminarPersona(persona: any) {
+  confirmarEliminarPersona(persona: Persona) {
     const modalConfirmarEliminar = this.dialog.open(ModalConfirmarEliminarComponent, {
-      data: persona
+      data: persona,
+      disableClose: true
     });
     modalConfirmarEliminar.afterClosed().subscribe({
       next: (response) => {
         if (response) {
-          this.eliminarPersona(persona.id)
+          this.eliminarPersona(persona.id!)
         }
       }
     });
