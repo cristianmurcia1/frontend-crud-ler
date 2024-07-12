@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.dataSource = new MatTableDataSource(response);
-          console.log(this.dataSource.data.length);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
         },
@@ -52,7 +51,21 @@ export class AppComponent implements OnInit {
   }
 
   openAddPersonForm() {
-    const modalPersona = this._dialog.open(RegistrarPersonaComponent)
+    const modalPersona = this._dialog.open(RegistrarPersonaComponent);
+    modalPersona.afterClosed().subscribe({
+      next: (response) => {
+        console.log(response);
+        if (response) {
+          this.obtenerPersonas();
+        }
+      }
+    });
+  }
+
+  openEditPersonForm(persona: any) {
+    const modalPersona = this._dialog.open(RegistrarPersonaComponent, {
+      data: persona
+    });
     modalPersona.afterClosed().subscribe({
       next: (response) => {
         console.log(response);
@@ -74,6 +87,5 @@ export class AppComponent implements OnInit {
         }
       });
   }
-
   
 }

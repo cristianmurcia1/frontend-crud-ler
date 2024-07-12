@@ -8,7 +8,7 @@
 </mat-toolbar>
 
 <!-- Tabla personas -->
- <div class="div-table">
+<div class="div-table">
     <mat-form-field appearance="fill">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Cristian" #input>
@@ -39,7 +39,7 @@
       <ng-container matColumnDef="modificar">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Modificar </th>
         <td mat-cell *matCellDef="let row"> 
-          <button mat-icon-button>
+          <button mat-icon-button (click)="openEditPersonForm(row)">
             <mat-icon style="color: rgb(68, 68, 138);">edit</mat-icon>
           </button>
         </td>
