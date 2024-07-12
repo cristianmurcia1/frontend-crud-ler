@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { RegistrarPersonaComponent } from './components/registrar-persona/registrar-persona.component';
 import { PersonaService } from './services/persona.service';
+import { CoreService } from './core/core.service';
+import { ModalConfirmarEliminarComponent } from './components/modal-confirmar-eliminar/modal-confirmar-eliminar.component';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +16,15 @@ import { PersonaService } from './services/persona.service';
 export class AppComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'cedula', 'fechaNacimiento', 'modificar', 'eliminar'];
   dataSource!: MatTableDataSource<any>;
+  searchValue: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private _dialog: MatDialog,
-    private personaService: PersonaService
+    private dialog: MatDialog,
+    private personaService: PersonaService,
+    private coreService: CoreService
   ){}
 
   ngOnInit(): void {
@@ -41,9 +45,10 @@ export class AppComponent implements OnInit {
       });
   }
 
+  // Realizar búsqueda en la tabla
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.searchValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = this.searchValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -51,26 +56,39 @@ export class AppComponent implements OnInit {
   }
 
   openAddPersonForm() {
-    const modalPersona = this._dialog.open(RegistrarPersonaComponent);
+    const modalPersona = this.dialog.open(RegistrarPersonaComponent);
     modalPersona.afterClosed().subscribe({
       next: (response) => {
-        console.log(response);
         if (response) {
           this.obtenerPersonas();
+          this.coreService.openSnackBar('Persona creada exitosamente', 'snackbar-blue');
         }
       }
     });
   }
 
   openEditPersonForm(persona: any) {
-    const modalPersona = this._dialog.open(RegistrarPersonaComponent, {
+    const modalPersona = this.dialog.open(RegistrarPersonaComponent, {
       data: persona
     });
     modalPersona.afterClosed().subscribe({
       next: (response) => {
-        console.log(response);
         if (response) {
           this.obtenerPersonas();
+          this.coreService.openSnackBar('Información modificada exitosamente', 'snackbar-blue');
+        }
+      }
+    });
+  }
+
+  confirmarEliminarPersona(persona: any) {
+    const modalConfirmarEliminar = this.dialog.open(ModalConfirmarEliminarComponent, {
+      data: persona
+    });
+    modalConfirmarEliminar.afterClosed().subscribe({
+      next: (response) => {
+        if (response) {
+          this.eliminarPersona(persona.id)
         }
       }
     });
@@ -81,6 +99,7 @@ export class AppComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.obtenerPersonas(); 
+          this.coreService.openSnackBar('Persona eliminada exitosamente', 'snackbar-red');
         },
         error: (error) => {
           console.error('Error al eliminar la persona -> ', error);

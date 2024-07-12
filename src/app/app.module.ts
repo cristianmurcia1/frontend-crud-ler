@@ -18,13 +18,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { RegistrarPersonaComponent } from './components/registrar-persona/registrar-persona.component';
+import { ModalConfirmarEliminarComponent } from './components/modal-confirmar-eliminar/modal-confirmar-eliminar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrarPersonaComponent,
+    ModalConfirmarEliminarComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,9 @@ import { RegistrarPersonaComponent } from './components/registrar-persona/regist
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

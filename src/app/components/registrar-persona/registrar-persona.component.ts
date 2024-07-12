@@ -13,9 +13,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class RegistrarPersonaComponent implements OnInit {
   // Formulario
   personForm: FormGroup;
-
   // Validar que la fecha de nacimiento no sea superior a la fecha actual
   todayDate = new Date();
+  title: string;
 
 
   constructor(
@@ -29,13 +29,16 @@ export class RegistrarPersonaComponent implements OnInit {
       cedula: ['', [Validators.required, cedulaValidator]],
       fechaNacimiento: ['', [Validators.required, edadValidator]]
     });
+
+    // Determinar el título de la modal (Agregar o Modificar)
+    this.title = data ? 'Modificar información' : 'Agregar persona';
   }
 
   ngOnInit(): void {
     this.personForm.patchValue(this.data);
   }
 
-  submitForm() {  
+  submitForm() {
     const formData = this.personForm.value;
 
     // Validación para identificar cuando se está modificando la información

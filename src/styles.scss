@@ -2,3 +2,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Estilos para snackbar
+.snackbar-blue {
+  --mdc-snackbar-container-color: rgb(68, 68, 138);
+  --mdc-snackbar-supporting-text-color: #fff;
+}
+
+.snackbar-red {
+  --mdc-snackbar-container-color: rgb(194, 49, 49);
+  --mdc-snackbar-supporting-text-color: #fff;
+}

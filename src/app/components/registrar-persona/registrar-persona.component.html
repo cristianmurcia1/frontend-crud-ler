@@ -1,5 +1,5 @@
-<div mat-dialog-title>
-  <h1>Formulario persona</h1>
+<div class="title" mat-dialog-title>
+  <h1>{{ title }}</h1>
 </div>
 <form [formGroup]="personForm" (ngSubmit)="submitForm()">
   <div class="content-form" mat-dialog-content>
@@ -55,6 +55,6 @@
   
   <div class="action-buttons" mat-dialog-actions>
     <button mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
-    <button mat-raised-button color="primary" type="submit" [disabled]="personForm.invalid">{{data ? 'Actualizar' : 'Guardar'}}</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="personForm.invalid || personForm.pristine">{{data ? 'Actualizar' : 'Guardar'}}</button>
   </div>
 </form>
