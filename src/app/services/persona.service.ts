@@ -15,10 +15,10 @@ export class PersonaService {
     return this.http.get<any>(`${this.baseApi}/usuarios`);
   }
 
-    // Generar reporte AFU
-    registrarPersona(body: FormData) {
-      return this.http.post<any>(`${this.baseApi}/usuarios`, body);
-    }
+  // Generar reporte AFU
+  registrarPersona(body: FormData) {
+    return this.http.post<any>(`${this.baseApi}/usuarios`, body);
+  }
 
 
 }
