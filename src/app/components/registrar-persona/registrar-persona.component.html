@@ -1,6 +1,9 @@
+<!-- Título de la modal -->
 <div class="title" mat-dialog-title>
   <h1>{{ title }}</h1>
 </div>
+
+<!-- Formulario -->
 <form [formGroup]="personForm" (ngSubmit)="submitForm()">
   <div class="content-form" mat-dialog-content>
   
@@ -27,8 +30,25 @@
       </mat-form-field>
   
     </div>
-  
+
     <div class="row">
+      <!-- Género -->
+      <mat-form-field appearance="outline">
+        <mat-label>Género</mat-label>
+        <mat-select formControlName="genero">
+          <mat-option value="Masculino">Masculino</mat-option>
+          <mat-option value="Femenino">Femenino</mat-option>
+          <mat-option value="Otro">Otro</mat-option>
+        </mat-select>
+        <mat-error *ngIf="personForm.get('genero')?.hasError('required')">
+          Por favor seleccione su género.
+        </mat-error>
+      </mat-form-field>
+
+    <!-- </div> -->
+  
+    <!-- <div class="row"> -->
+
       <!-- Fecha de nacimiento -->
       <mat-form-field appearance="outline">
         <mat-label>Fecha de nacimiento</mat-label>
@@ -38,8 +58,8 @@
         <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
         <mat-datepicker #datepicker>
           <mat-datepicker-actions>
-            <button mat-button matDatepickerCancel>Cancelar</button>
-            <button mat-raised-button color="primary" matDatepickerApply>Confirmar</button>
+            <button mat-button matDatepickerCancel class="button-cancel">Cancelar</button>
+            <button mat-raised-button color="primary" matDatepickerApply class="button-date">Confirmar</button>
           </mat-datepicker-actions>
         </mat-datepicker>
         <mat-error *ngIf="personForm.get('fechaNacimiento')?.hasError('required')">
@@ -49,12 +69,14 @@
           <span>Su fecha de nacimiento no corresponde</span>
         </mat-error>
       </mat-form-field>
+
     </div>
   
   </div>
   
+  <!-- Botones -->
   <div class="action-buttons" mat-dialog-actions>
-    <button mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
-    <button mat-raised-button color="primary" type="submit" [disabled]="personForm.invalid || personForm.pristine">{{data ? 'Actualizar' : 'Guardar'}}</button>
+    <button class="button-cancel" mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
+    <button class="button-save-edit" mat-raised-button type="submit" [disabled]="personForm.invalid || personForm.pristine">{{data ? 'Actualizar' : 'Guardar'}}</button>
   </div>
 </form>

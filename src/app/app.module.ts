@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -20,6 +19,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 import { RegistrarPersonaComponent } from './components/registrar-persona/registrar-persona.component';
 import { ModalConfirmarEliminarComponent } from './components/modal-confirmar-eliminar/modal-confirmar-eliminar.component';
@@ -34,7 +34,6 @@ import { ModalConfirmarEliminarComponent } from './components/modal-confirmar-el
     BrowserModule,
     AppRoutingModule, 
     BrowserAnimationsModule,
-    MatToolbarModule,
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
@@ -49,6 +48,7 @@ import { ModalConfirmarEliminarComponent } from './components/modal-confirmar-el
     MatSortModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

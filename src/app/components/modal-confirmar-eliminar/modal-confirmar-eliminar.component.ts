@@ -1,3 +1,5 @@
+// Modal empleada para que el usuario confirme antes de eliminar a una persona
+
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 

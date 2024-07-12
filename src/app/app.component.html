@@ -1,11 +1,13 @@
-<!-- Toolbar -->
-<mat-toolbar color="primary">
-  <span>Prueba técnica LER PREVENCIÓN</span>
-  <span class="example-spacer"></span>
-  <button mat-raised-button (click)="openAddPersonForm()">
+<div class="header">
+  <h1>Prueba técnica LER Prevención</h1>
+</div>
+
+<!-- Botón para agregar persona -->
+<div class="add-person-button-container">
+  <button class="button-add-person" mat-raised-button (click)="openAddPersonForm()">
     Agregar persona
   </button>
-</mat-toolbar>
+</div>
 
 <!-- Tabla personas -->
 <div class="div-table">
@@ -28,6 +30,12 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> # Cédula </th>
         <td mat-cell *matCellDef="let row"> {{row.cedula}} </td>
       </ng-container>
+
+      <!-- Columna género -->
+      <ng-container matColumnDef="genero">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Género </th>
+        <td mat-cell *matCellDef="let row"> {{row.genero}} </td>
+      </ng-container>
   
       <!-- Columna fecha de nacimiento -->
       <ng-container matColumnDef="fechaNacimiento">
@@ -40,7 +48,7 @@
         <th mat-header-cell *matHeaderCellDef> Modificar </th>
         <td mat-cell *matCellDef="let row"> 
           <button mat-icon-button (click)="openEditPersonForm(row)" matTooltip="Modificar información">
-            <mat-icon style="color: rgb(68, 68, 138);">edit</mat-icon>
+            <mat-icon style="color: #2546A4;">edit</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -68,7 +76,7 @@
 
     <!-- Mensaje cuando no hay datos -->
     <div *ngIf="!searchValue && dataSource && dataSource.data.length === 0" class="no-data-message">
-      No hay datos disponibles.
+      No hay datos disponibles
     </div>
 
     <!-- Paginador -->

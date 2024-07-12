@@ -16,7 +16,7 @@ import { Persona } from './interfaces/persona';
 })
 export class AppComponent implements OnInit {
   // Configuración tabla
-  displayedColumns: string[] = ['nombre', 'cedula', 'fechaNacimiento', 'modificar', 'eliminar'];
+  displayedColumns: string[] = ['nombre', 'cedula', 'genero', 'fechaNacimiento', 'modificar', 'eliminar'];
   dataSource!: MatTableDataSource<Persona>;
   searchValue: string = '';
 

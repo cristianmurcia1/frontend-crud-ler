@@ -1,5 +1,27 @@
-.example-spacer {
-  flex: 1 1 auto;
+.header {
+  background-color: #f1f1f1;
+  padding: 16px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+
+.button-add-person {
+  background-color: var(--color-primario) !important;
+  color: white !important;
+}
+
+/* Estilos para el contenedor del botón */
+.add-person-button-container {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+/* Opcional: Estilo del botón para hacerlo más prominente */
+button.mat-raised-button {
+  font-size: 16px;
+  padding: 12px 24px;
 }
 
 .div-table {
@@ -14,7 +36,7 @@
 .no-data-message {
   text-align: center;
   font-size: 16px;
-  color: #666;
+  color: var(--color-acento);
   padding: 16px;
 }
 

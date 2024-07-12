@@ -1,3 +1,6 @@
+// Validación empleada en el formulario para verificar que el usuario tenga 18 años
+// de no ser así no tendría número de cédula
+
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 export function edadValidator(control: AbstractControl): ValidationErrors | null {

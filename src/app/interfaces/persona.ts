@@ -4,6 +4,7 @@ export interface Persona {
   id?: number;
   nombre: string;
   cedula: number;
+  genero: string;
   fechaNacimiento: Date;
 }
 
