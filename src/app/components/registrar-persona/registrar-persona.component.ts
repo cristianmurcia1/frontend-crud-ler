@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { edadValidator } from '../../validators/edad-validator'
 import { cedulaValidator } from '../../validators/cedula-validator';
 import { PersonaService } from 'src/app/services/persona.service';
-import { DialogRef } from '@angular/cdk/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-registrar-persona',
@@ -21,7 +21,7 @@ export class RegistrarPersonaComponent {
   constructor(
     private _fb: FormBuilder,
     private personaService: PersonaService,
-    private _dialogRef: DialogRef<RegistrarPersonaComponent>
+    private _dialogRef: MatDialogRef<RegistrarPersonaComponent>
   ) {
     this.personForm = this._fb.group({
       nombre: ['', [Validators.required]],
@@ -34,8 +34,7 @@ export class RegistrarPersonaComponent {
     this.personaService.registrarPersona(this.personForm.value)
       .subscribe({
         next: (response) => {
-          console.log('Respuesta del servidor', response);
-          this._dialogRef.close();
+          this._dialogRef.close(true);
         },
         error: (error) => {
           console.error('Error en el servidor -> ', error);

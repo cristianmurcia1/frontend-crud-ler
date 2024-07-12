@@ -10,14 +10,19 @@ export class PersonaService {
 
   constructor(private http: HttpClient) { }
 
-  
+  // Consultar personas
   obtenerPersonas() {
     return this.http.get<any>(`${this.baseApi}/usuarios`);
   }
 
-  // Generar reporte AFU
+  // Registrar persona
   registrarPersona(body: FormData) {
     return this.http.post<any>(`${this.baseApi}/usuarios`, body);
+  }
+
+  // Eliminar persona
+  eliminarPersona(id: number) {
+    return this.http.delete<object>(`${this.baseApi}/usuarios/${id}`);
   }
 
 

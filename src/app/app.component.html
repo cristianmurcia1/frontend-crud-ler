@@ -2,7 +2,7 @@
 <mat-toolbar color="primary">
   <span>Prueba técnica LER PREVENCIÓN</span>
   <span class="example-spacer"></span>
-  <button mat-raised-button (click)="openAddEditPersonForm()">
+  <button mat-raised-button (click)="openAddPersonForm()">
     Agregar persona
   </button>
 </mat-toolbar>
@@ -16,7 +16,7 @@
   
   <div class="mat-elevation-z6">
     <table mat-table [dataSource]="dataSource" matSort>
-   
+      
       <!-- Columna nombre -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
@@ -33,6 +33,26 @@
       <ng-container matColumnDef="fechaNacimiento">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de nacimiento </th>
         <td mat-cell *matCellDef="let row"> {{row.fechaNacimiento | date}} </td>
+      </ng-container>
+
+      <!-- Columna para modificar información de la persona -->
+      <ng-container matColumnDef="modificar">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Modificar </th>
+        <td mat-cell *matCellDef="let row"> 
+          <button mat-icon-button>
+            <mat-icon style="color: rgb(68, 68, 138);">edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Columna para eliminar persona -->
+      <ng-container matColumnDef="eliminar">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Eliminar </th>
+        <td mat-cell *matCellDef="let row"> 
+          <button mat-icon-button (click)="eliminarPersona(row.id)">
+            <mat-icon style="color: red;">delete</mat-icon>
+          </button>
+        </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

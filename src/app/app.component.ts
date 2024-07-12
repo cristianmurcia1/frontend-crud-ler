@@ -12,7 +12,7 @@ import { PersonaService } from './services/persona.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  displayedColumns: string[] = ['nombre', 'cedula', 'fechaNacimiento'];
+  displayedColumns: string[] = ['nombre', 'cedula', 'fechaNacimiento', 'modificar', 'eliminar'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -31,7 +31,6 @@ export class AppComponent implements OnInit {
     this.personaService.obtenerPersonas()
       .subscribe({
         next: (response) => {
-          console.log('Personas -> ', response);
           this.dataSource = new MatTableDataSource(response);
           console.log(this.dataSource.data.length);
           this.dataSource.sort = this.sort;
@@ -52,8 +51,28 @@ export class AppComponent implements OnInit {
     }
   }
 
-  openAddEditPersonForm() {
-    this._dialog.open(RegistrarPersonaComponent)
+  openAddPersonForm() {
+    const modalPersona = this._dialog.open(RegistrarPersonaComponent)
+    modalPersona.afterClosed().subscribe({
+      next: (response) => {
+        console.log(response);
+        if (response) {
+          this.obtenerPersonas();
+        }
+      }
+    });
+  }
+
+  eliminarPersona(id: number) {
+    this.personaService.eliminarPersona(id)
+      .subscribe({
+        next: (response) => {
+          this.obtenerPersonas(); 
+        },
+        error: (error) => {
+          console.error('Error al eliminar la persona -> ', error);
+        }
+      });
   }
 
   
