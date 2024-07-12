@@ -1,1 +1,60 @@
-<p>registrar-persona works!</p>
+<div mat-dialog-title>
+  <h1>Formulario persona</h1>
+</div>
+<form [formGroup]="personForm" (ngSubmit)="submitForm()">
+  <div class="content-form" mat-dialog-content>
+  
+    <div class="row">
+      <!-- Nombre persona -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput type="text" placeholder="Ingrese su nombre" formControlName="nombre">
+        <mat-error *ngIf="personForm.get('nombre')?.hasError('required')">
+          <span>Por favor ingrese su nombre</span>
+        </mat-error>
+      </mat-form-field>
+  
+      <!-- Número de cédula -->
+      <mat-form-field appearance="outline">
+        <mat-label>Número de cédula</mat-label>
+        <input matInput type="number" placeholder="Ingrese su número de cédula" formControlName="cedula">
+        <mat-error *ngIf="personForm.get('cedula')?.hasError('required')">
+          <span>Por favor ingrese su número de cédula</span>
+        </mat-error>
+        <mat-error *ngIf="personForm.get('cedula')?.hasError('cedulaInvalida') && !personForm.get('cedula')?.hasError('required')">
+          <span>{{personForm.get('cedula')?.getError('cedulaInvalida')}}</span>
+        </mat-error>
+      </mat-form-field>
+  
+    </div>
+  
+    <div class="row">
+      <!-- Fecha de nacimiento -->
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha de nacimiento</mat-label>
+        <input matInput [matDatepicker]="datepicker" type="text" [max]="todayDate" autocomplete="off" 
+              (click)="datepicker.open()" (keydown)="false" formControlName="fechaNacimiento">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancelar</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Confirmar</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+        <mat-error *ngIf="personForm.get('fechaNacimiento')?.hasError('required')">
+          <span>Por favor seleccione su fecha de nacimiento</span>
+        </mat-error>
+        <mat-error *ngIf="personForm.get('fechaNacimiento')?.hasError('menorDeEdad')">
+          <span>Su fecha de nacimiento no corresponde</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  
+  </div>
+  
+  <div class="action-buttons" mat-dialog-actions>
+    <button mat-raised-button>Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="personForm.invalid">Guardar</button>
+  </div>
+</form>
